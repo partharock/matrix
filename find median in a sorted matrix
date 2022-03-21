@@ -1,0 +1,29 @@
+time o r*logc
+int median(vector<vector<int>> &matrix, int r, int c){
+        // code here   
+        int minner=INT_MAX,maxer=INT_MIN;
+        for(int i=0;i<r;i++)
+        {
+            minner=min(minner,matrix[i][0]);
+            maxer=max(maxer,matrix[i][c-1]);
+        }
+        
+        int partition=(r*c +1)/2 ;
+        while(minner<=maxer)
+        {
+            int divider=0;
+            int  mid = minner + (maxer-minner)/2;
+            for(int j=0;j<r;j++)
+            {
+                  divider+= upper_bound(matrix[j].begin(),matrix[j].end(),mid) - matrix[j].begin();
+            }
+           
+             if(divider<partition)
+             minner=mid+1;
+             else
+             maxer=mid-1;
+        }
+        return minner;
+        
+        
+    }
